@@ -166,17 +166,15 @@ for paragraph in paragraphs:
     if paragraph.strip()[0].isdigit():
         czech=1
         que=paragraph
-    if not paragraph.strip()[0].isdigit() and runn and False:
-        print(paragraph)
     if czech==2 and runn:
         first=paragraph[2:]
-    if czech==3 and runn:
+    elif czech==3 and runn:
         second=paragraph[2:]
-    if czech==4 and runn:
+    elif czech==4 and runn:
         third=paragraph[2:]
-    if czech==5 and runn:
+    elif czech==5 and runn:
         fourth=paragraph[2:]
-    if czech==6 and runn:
+    elif czech==6 and runn:
         fifth=paragraph[2:]
         over=True
         czech=0
