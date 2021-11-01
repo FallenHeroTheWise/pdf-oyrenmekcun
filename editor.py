@@ -2,6 +2,7 @@ import sys
 import time
 import pygame
 import random
+from pprint import pprint
 from pygame.locals import *
 import pickle
 white=(255,255,255)
@@ -144,6 +145,7 @@ def saveQuestion():
     count=0
     global questions
     while True:
+        time.sleep(0.4)
         if count==0:
             inp=input('question: \n')
             question=inp
@@ -175,6 +177,9 @@ def saveQuestion():
             print(len(questions))
         if inp.lower()=='break':
             break
+        elif inp.lower()=='back':
+            count-=2
+        time.sleep(0.4)
 def deleteQuestion():
     global questions
     if input('delete last one?') in ['yes','true']:
@@ -182,7 +187,61 @@ def deleteQuestion():
         questions=questions[:-1]
         saveData([questions,'Fallen'])
         print(len(questions))
+contents=[]
+
+def takeanswers():
+    contents=[]
+    while True:
+        try:
+            line=input('ctrl d to save')
+        except EOFError:
+            break
+        contents.append(line)
+    question=contents[0]
+    for l in contents:
+        if l.startswith('A'):
+            answer1=l
+            
+        if l.startswith('B'):
+            answer2=l
+            
+        if l.startswith('C'):
+            answer3=l
+            
+        if l.startswith('D'):
+            answer4=l
+            
+        if l.startswith('E'):
+            answer5=l
+    print([question, answer1, answer2, answer3, answer4, answer5]) 
+    
+    ra=input('right answer').lower()
+    if ra=='a':
+        questions.append(Question(question, answer1, answer2, answer3, answer4, answer5))
+        saveData([questions,'Fallen'])
+        print(len(questions))
+    if ra=='b':
+        questions.append(Question(question, answer2, answer1, answer3, answer4, answer5))
+        saveData([questions,'Fallen'])
+        print(len(questions))
+    if ra=='c':
+        questions.append(Question(question, answer3, answer2, answer1, answer4, answer5))
+        saveData([questions,'Fallen'])
+        print(len(questions))
+    if ra=='d':
+        questions.append(Question(question, answer4, answer2, answer3, answer1, answer5))
+        saveData([questions,'Fallen'])
+        print(len(questions))
+    if ra=='e':
+        questions.append(Question(question, answer5, answer2, answer3, answer4, answer1))
+        saveData([questions,'Fallen'])
+        print(len(questions))
+pprint([questions[-1].question,questions[-1].ra,questions[-1].w1,questions[-1].w2,questions[-1].w3,questions[-1].w4]
+       )
 while True:
+    takeanswers()
+    pprint([questions[-1].question,questions[-1].ra,questions[-1].w1,questions[-1].w2,questions[-1].w3,questions[-1].w4])
+while False:
     inp=input('save or delete').lower()
     if inp=='save':
         print('type break to quit')
